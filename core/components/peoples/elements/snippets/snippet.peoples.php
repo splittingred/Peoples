@@ -8,9 +8,9 @@ $output = '';
 
 /* setup default properties */
 $tpl = $modx->getOption('tpl',$scriptProperties,'pplUser');
-$limit = $modx->getOption('limit',$scriptProperties,10);
 $active = $modx->getOption('active',$scriptProperties,true);
 $usergroups = $modx->getOption('usergroups',$scriptProperties,'');
+$limit = $modx->getOption('limit',$scriptProperties,10);
 $start = $modx->getOption('start',$scriptProperties,0);
 $sortBy = $modx->getOption('sortBy',$scriptProperties,'username');
 $sortDir = $modx->getOption('sortDir',$scriptProperties,'ASC');
@@ -30,21 +30,20 @@ if (is_bool($active) || $active < 2) {
 }
 /* filter by user groups */
 if (!empty($usergroups)) {
+    $usergroups = explode(',',$usergroups);
     $c->leftJoin('modUserGroupMember','UserGroupMembers');
-    $c->leftJoin('modUserGroup','UserGroup','UserGroupMembers.user_group = UserGroup.id');
+    $c->leftJoin('modUserGroup','UserGroup',$modx->getSelectColumns('modUserGroupMember','UserGroupMembers','',array('user_group')).' = '.$modx->getSelectColumns('modUserGroup','UserGroup','',array('id')));
     $c->where(array(
-        'UserGroup.name:IN' => explode(',',$usergroups),
+        'UserGroup.name:IN' => $usergroups,
     ));
 }
 $count = $modx->getCount('modUser',$c);
-$c->sortby($sortBy,$sortDir);
+$c->sortby($modx->escape($sortBy),$sortDir);
 if (!empty($limit)) {
     $c->limit($limit,$start);
 }
 $c->bindGraph('{"'.$profileAlias.'":{}}');
 $users = $modx->getCollectionGraph('modUser','{"'.$profileAlias.'":{}}',$c);
-$c->prepare();
-echo $c->toSql();
 
 /* iterate */
 $list = array();
@@ -56,20 +55,7 @@ foreach ($users as $user) {
     
     $userArray = $user->get(array('id','username','active','class_key','remote_key','remote_data'));
     $userArray = array_merge($user->Profile->toArray(),$userArray);
-
-    /* get extended data */
-    $extended = $user->Profile->get('extended');
-    if (!empty($extended)) {
-        $userArray = array_merge($extended,$userArray);
-    }
     
-    /* get remote data */
-    $remoteData = $user->get('remote_data');
-    if (!empty($remoteData)) {
-        $userArray = array_merge($remoteData,$userArray);
-    }
-    
-
     $userArray['cls'] = $alt ? $altCls : $cls;
     if (!empty($firstCls) && $idx == 0) {
         $userArray['cls'] .= ' '.$firstCls;
@@ -78,6 +64,8 @@ foreach ($users as $user) {
         $userArray['cls'] .= ' '.$lastCls;
     }
     $list[] = $peoples->getChunk($tpl,$userArray);
+    $peoples->clearPlaceholders($userArray,'extended');
+    $peoples->clearPlaceholders($userArray,'remote_data');
     $alt = !$alt;
     $idx++;
 }
