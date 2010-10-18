@@ -30,11 +30,11 @@ $snippets = array();
 $snippets[0]= $modx->newObject('modSnippet');
 $snippets[0]->fromArray(array(
     'id' => 0,
-    'name' => 'pplUsers',
+    'name' => 'Peoples',
     'description' => 'Displays a list of Users.',
-    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.pplusers.php'),
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.peoples.php'),
 ),'',true,true);
-$properties = include $sources['build'].'properties/properties.pplusers.php';
+$properties = include $sources['build'].'properties/properties.peoples.php';
 $snippets[0]->setProperties($properties);
 unset($properties);
 

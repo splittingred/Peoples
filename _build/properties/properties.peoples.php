@@ -28,7 +28,7 @@
 $properties = array(
     array(
         'name' => 'tpl',
-        'desc' => 'prop_pplusers.tpl_desc',
+        'desc' => 'prop_peoples.tpl_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => 'pplUser',
@@ -36,7 +36,7 @@ $properties = array(
     ),
     array(
         'name' => 'sortBy',
-        'desc' => 'prop_pplusers.sortby_desc',
+        'desc' => 'prop_peoples.sortby_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => 'name',
@@ -44,7 +44,7 @@ $properties = array(
     ),
     array(
         'name' => 'sortDir',
-        'desc' => 'prop_pplusers.sortdir_desc',
+        'desc' => 'prop_peoples.sortdir_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => 'ASC',
@@ -52,7 +52,7 @@ $properties = array(
     ),
     array(
         'name' => 'limit',
-        'desc' => 'prop_pplusers.limit_desc',
+        'desc' => 'prop_peoples.limit_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => 5,
@@ -60,7 +60,7 @@ $properties = array(
     ),
     array(
         'name' => 'outputSeparator',
-        'desc' => 'prop_pplusers.outputseparator_desc',
+        'desc' => 'prop_peoples.outputseparator_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => '',
@@ -68,7 +68,7 @@ $properties = array(
     ),
     array(
         'name' => 'toPlaceholder',
-        'desc' => 'prop_pplusers.toplaceholder_desc',
+        'desc' => 'prop_peoples.toplaceholder_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => true,
@@ -77,7 +77,7 @@ $properties = array(
 /*
     array(
         'name' => '',
-        'desc' => 'prop_pplusers.',
+        'desc' => 'prop_peoples.',
         'type' => 'textfield',
         'options' => '',
         'value' => '',

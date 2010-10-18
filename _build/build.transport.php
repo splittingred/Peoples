@@ -134,6 +134,9 @@ $vehicle->resolve('file',array(
     'source' => $sources['source_core'],
     'target' => "return MODX_CORE_PATH . 'components/';",
 ));
+$vehicle->resolve('php',array(
+    'source' => $sources['resolvers'] . 'resolve.tables.php',
+));
 $builder->putVehicle($vehicle);
 
 /* load system settings */
@@ -155,6 +158,7 @@ if (!is_array($settings)) {
 unset($settings,$setting,$attributes);
 
 /* load menu */
+/*
 $menu = include $sources['data'].'transport.menu.php';
 if (empty($menu)) {
     $modx->log(modX::LOG_LEVEL_ERROR,'Could not package in menu.');
@@ -173,14 +177,11 @@ if (empty($menu)) {
         ),
     ));
     $modx->log(modX::LOG_LEVEL_INFO,'Adding in PHP resolvers...');
-    $vehicle->resolve('php',array(
-        'source' => $sources['resolvers'] . 'resolve.tables.php',
-    ));
     $builder->putVehicle($vehicle);
     $modx->log(modX::LOG_LEVEL_INFO,'Packaged in menu.');
 }
 unset($vehicle,$menu);
-
+*/
 /* now pack in the license file, readme and setup options */
 $builder->setPackageAttributes(array(
     'license' => file_get_contents($sources['docs'] . 'license.txt'),
