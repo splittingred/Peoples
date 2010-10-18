@@ -2,4 +2,5 @@ Changelog for Peoples.
 
 Peoples 1.0.0
 ====================================
+- Added Peoples and PeopleGroups snippets
 - Initial commit

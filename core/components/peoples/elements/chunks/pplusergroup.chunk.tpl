@@ -1,0 +1,1 @@
+<li class="[[+cls]]">[[+name]] ([[+children]])</li>

@@ -77,10 +77,10 @@ $alt = false;
 $iterativeCount = count($users);
 $idx = 0;
 foreach ($users as $user) {
-    if (empty($user->Profile)) continue;
+    if (empty($user->$profileAlias)) continue;
     
     $userArray = $user->get(array('id','username','active','class_key','remote_key','remote_data'));
-    $userArray = array_merge($user->Profile->toArray(),$userArray);
+    $userArray = array_merge($user->$profileAlias->toArray(),$userArray);
     
     $userArray['cls'] = $alt && !empty($altCls) ? $cls.' '.$altCls : $cls;
     if (!empty($firstCls) && $idx == 0) {
