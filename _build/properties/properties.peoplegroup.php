@@ -20,65 +20,50 @@
  * @package peoples
  */
 /**
- * Properties for the PeopleGroups snippet.
+ * Properties for the PeopleGroup snippet.
  *
  * @package peoples
  * @subpackage build
  */
 $properties = array(
     array(
-        'name' => 'tpl',
-        'desc' => 'prop_peoplegroups.tpl_desc',
+        'name' => 'usergroup',
+        'desc' => 'prop_peoplegroup.usergroup_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => 'pplUserGroup',
+        'value' => '',
         'lexicon' => 'peoples:properties',
     ),
     array(
-        'name' => 'user',
-        'desc' => 'prop_peoplegroups.user_desc',
+        'name' => 'userTpl',
+        'desc' => 'prop_peoplegroup.usertpl_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => 0,
-        'lexicon' => 'peoples:properties',
-    ),
-    array(
-        'name' => 'limit',
-        'desc' => 'prop_peoplegroups.limit_desc',
-        'type' => 'textfield',
-        'options' => '',
-        'value' => 10,
-        'lexicon' => 'peoples:properties',
-    ),
-    array(
-        'name' => 'start',
-        'desc' => 'prop_peoplegroups.start_desc',
-        'type' => 'textfield',
-        'options' => '',
-        'value' => 0,
+        'value' => 'pplGroupUser',
         'lexicon' => 'peoples:properties',
     ),
     array(
         'name' => 'sortBy',
-        'desc' => 'prop_peoplegroups.sortby_desc',
+        'desc' => 'prop_peoplegroup.sortby_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => 'username',
         'lexicon' => 'peoples:properties',
-    ),/*
+    ),
     array(
         'name' => 'sortByAlias',
-        'desc' => 'prop_peoplegroups.sortbyalias_desc',
+        'desc' => 'prop_peoplegroup.sortbyalias_desc',
         'type' => 'list',
         'options' => array(
-            array('name' => 'UserGroup','value' => 'modUserGroup'),
+            array('name' => 'User','value' => 'modUser'),
+            array('name' => 'Role','value' => 'UserGroupRole'),
         ),
-        'value' => 'modUserGroup',
+        'value' => 'modUser',
         'lexicon' => 'peoples:properties',
-    ),*/
+    ),
     array(
         'name' => 'sortDir',
-        'desc' => 'prop_peoplegroups.sortdir_desc',
+        'desc' => 'prop_peoplegroup.sortdir_desc',
         'type' => 'list',
         'options' => array(
             array('name' => 'peoples.opt_asc','value' => 'ASC'),
@@ -88,16 +73,56 @@ $properties = array(
         'lexicon' => 'peoples:properties',
     ),
     array(
-        'name' => 'cls',
-        'desc' => 'prop_peoplegroups.cls_desc',
+        'name' => 'limit',
+        'desc' => 'prop_peoplegroup.limit_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => 'ppl-usergroup',
+        'value' => 0,
+        'lexicon' => 'peoples:properties',
+    ),
+    array(
+        'name' => 'start',
+        'desc' => 'prop_peoplegroup.start_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 0,
+        'lexicon' => 'peoples:properties',
+    ),
+    array(
+        'name' => 'getProfile',
+        'desc' => 'prop_peoplegroup.getprofile_desc',
+        'type' => 'combo-boolean',
+        'options' => '',
+        'value' => false,
+        'lexicon' => 'peoples:properties',
+    ),
+    array(
+        'name' => 'profileAlias',
+        'desc' => 'prop_peoplegroup.profilealias_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'Profile',
+        'lexicon' => 'peoples:properties',
+    ),
+    array(
+        'name' => 'userClass',
+        'desc' => 'prop_peoplegroup.userclass_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'modUser',
+        'lexicon' => 'peoples:properties',
+    ),
+    array(
+        'name' => 'cls',
+        'desc' => 'prop_peoplegroup.cls_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => 'ppl-user',
         'lexicon' => 'peoples:properties',
     ),
     array(
         'name' => 'altCls',
-        'desc' => 'prop_peoplegroups.altcls_desc',
+        'desc' => 'prop_peoplegroup.altcls_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => '',
@@ -105,7 +130,7 @@ $properties = array(
     ),
     array(
         'name' => 'firstCls',
-        'desc' => 'prop_peoplegroups.firstcls_desc',
+        'desc' => 'prop_peoplegroup.firstcls_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => '',
@@ -113,7 +138,7 @@ $properties = array(
     ),
     array(
         'name' => 'lastCls',
-        'desc' => 'prop_peoplegroups.lastcls_desc',
+        'desc' => 'prop_peoplegroup.lastcls_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => '',
@@ -121,7 +146,7 @@ $properties = array(
     ),
     array(
         'name' => 'placeholderPrefix',
-        'desc' => 'prop_peoplegroups.placeholderprefix_desc',
+        'desc' => 'prop_peoplegroup.placeholderprefix_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => 'peoplegroups.',
@@ -129,7 +154,7 @@ $properties = array(
     ),
     array(
         'name' => 'outputSeparator',
-        'desc' => 'prop_peoplegroups.outputseparator_desc',
+        'desc' => 'prop_peoplegroup.outputseparator_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => '',
@@ -137,7 +162,7 @@ $properties = array(
     ),
     array(
         'name' => 'toPlaceholder',
-        'desc' => 'prop_peoplegroups.toplaceholder_desc',
+        'desc' => 'prop_peoplegroup.toplaceholder_desc',
         'type' => 'textfield',
         'options' => '',
         'value' => '',
@@ -146,7 +171,7 @@ $properties = array(
 /*
     array(
         'name' => '',
-        'desc' => 'prop_peoplegroups.',
+        'desc' => 'prop_peoplegroup.',
         'type' => 'textfield',
         'options' => '',
         'value' => '',

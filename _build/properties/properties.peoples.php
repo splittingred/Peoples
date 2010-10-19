@@ -20,7 +20,7 @@
  * @package peoples
  */
 /**
- * Properties for the pplUsers snippet.
+ * Properties for the Peoples snippet.
  *
  * @package peoples
  * @subpackage build

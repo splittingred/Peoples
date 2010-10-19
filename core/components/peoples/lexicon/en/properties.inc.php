@@ -52,17 +52,37 @@ $_lang['prop_peoples.useralias_desc'] = 'The class alias of the Users object.';
 
 
 /* PeopleGroups */
-$_lang['prop_peoples.tpl_desc'] = 'The Chunk to use for each User Group.';
-$_lang['prop_peoples.user_desc'] = 'Optional. If an ID of a User is specified, will only show User Groups for that User.';
-$_lang['prop_peoples.limit'] = 'The number of users to limit per call. Defaults to 10. Set to 0 to show all.';
-$_lang['prop_peoples.start'] = 'The start index to begin with when limiting.';
-$_lang['prop_peoples.sortby'] = 'The field name to sort by.';
-$_lang['prop_peoples.sortbyalias'] = 'The class to use with the sort field.';
-$_lang['prop_peoples.sortdir'] = 'The direction to sort by.';
-$_lang['prop_peoples.cls'] = 'Optional. If set, will append this CSS class to each item.';
-$_lang['prop_peoples.altcls'] = 'Optional. If set, will append this CSS class to every even item.';
-$_lang['prop_peoples.firstcls'] = 'Optional. If set, will append this CSS class to the first item.';
-$_lang['prop_peoples.lastcls'] = 'Optional. If set, will append this CSS class to the last item.';
-$_lang['prop_peoples.placeholderprefix_desc'] = 'The prefix to use when setting global placeholders, such as total.';
-$_lang['prop_peoples.outputseparator_desc'] = 'The separator between each user record.';
-$_lang['prop_peoples.toplaceholder_desc'] = 'Optional. If set, will set the output to this placeholder and return empty.';
+$_lang['prop_peoplegroups.tpl_desc'] = 'The Chunk to use for each User Group.';
+$_lang['prop_peoplegroups.user_desc'] = 'Optional. If an ID of a User is specified, will only show User Groups for that User.';
+$_lang['prop_peoplegroups.limit'] = 'The number of users to limit per call. Defaults to 10. Set to 0 to show all.';
+$_lang['prop_peoplegroups.start'] = 'The start index to begin with when limiting.';
+$_lang['prop_peoplegroups.sortby'] = 'The field name to sort by.';
+$_lang['prop_peoplegroups.sortbyalias'] = 'The class to use with the sort field.';
+$_lang['prop_peoplegroups.sortdir'] = 'The direction to sort by.';
+$_lang['prop_peoplegroups.cls'] = 'Optional. If set, will append this CSS class to each item.';
+$_lang['prop_peoplegroups.altcls'] = 'Optional. If set, will append this CSS class to every even item.';
+$_lang['prop_peoplegroups.firstcls'] = 'Optional. If set, will append this CSS class to the first item.';
+$_lang['prop_peoplegroups.lastcls'] = 'Optional. If set, will append this CSS class to the last item.';
+$_lang['prop_peoplegroups.placeholderprefix_desc'] = 'The prefix to use when setting global placeholders, such as total.';
+$_lang['prop_peoplegroups.outputseparator_desc'] = 'The separator between each user group record.';
+$_lang['prop_peoplegroups.toplaceholder_desc'] = 'Optional. If set, will set the output to this placeholder and return empty.';
+
+
+/* PeopleGroup */
+$_lang['prop_peoplegroup.usergroup_desc'] = 'Required. Either the ID or name of the User Group to fetch.';
+$_lang['prop_peoplegroup.usertpl_desc'] = 'The Chunk to use for each User in the User Group.';
+$_lang['prop_peoplegroup.limit'] = 'The number of users to limit per call. Defaults to 0, which shows all Users.';
+$_lang['prop_peoplegroup.start'] = 'The start index to begin with when limiting.';
+$_lang['prop_peoplegroup.sortby'] = 'The field name to sort by.';
+$_lang['prop_peoplegroup.sortbyalias'] = 'The class to use with the sort field.';
+$_lang['prop_peoplegroup.sortdir'] = 'The direction to sort by.';
+$_lang['prop_peoplegroup.getprofile'] = 'If true, will also get the Profile for each User. Defaults to false.';
+$_lang['prop_peoplegroup.profilealias'] = 'The alias for the Profile class for each User.';
+$_lang['prop_peoplegroup.userclass'] = 'The class name for the User object for the Users in the User Group.';
+$_lang['prop_peoplegroup.cls'] = 'Optional. If set, will append this CSS class to each item.';
+$_lang['prop_peoplegroup.altcls'] = 'Optional. If set, will append this CSS class to every even item.';
+$_lang['prop_peoplegroup.firstcls'] = 'Optional. If set, will append this CSS class to the first item.';
+$_lang['prop_peoplegroup.lastcls'] = 'Optional. If set, will append this CSS class to the last item.';
+$_lang['prop_peoplegroup.placeholderprefix_desc'] = 'The prefix to use when setting global placeholders, such as userCount and the name of the User Group.';
+$_lang['prop_peoplegroup.outputseparator_desc'] = 'The separator between each user record.';
+$_lang['prop_peoplegroup.toplaceholder_desc'] = 'Optional. If set, will set the output to this placeholder and return empty.';

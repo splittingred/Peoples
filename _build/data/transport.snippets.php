@@ -38,4 +38,26 @@ $properties = include $sources['build'].'properties/properties.peoples.php';
 $snippets[0]->setProperties($properties);
 unset($properties);
 
+$snippets[1]= $modx->newObject('modSnippet');
+$snippets[1]->fromArray(array(
+    'id' => 1,
+    'name' => 'PeopleGroups',
+    'description' => 'Displays a list of User Groups.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.peoplegroups.php'),
+),'',true,true);
+$properties = include $sources['build'].'properties/properties.peoplegroups.php';
+$snippets[1]->setProperties($properties);
+unset($properties);
+
+$snippets[2]= $modx->newObject('modSnippet');
+$snippets[2]->fromArray(array(
+    'id' => 2,
+    'name' => 'PeopleGroup',
+    'description' => 'Displays a list of Users in a User Group.',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.peoplegroup.php'),
+),'',true,true);
+$properties = include $sources['build'].'properties/properties.peoplegroup.php';
+$snippets[2]->setProperties($properties);
+unset($properties);
+
 return $snippets;

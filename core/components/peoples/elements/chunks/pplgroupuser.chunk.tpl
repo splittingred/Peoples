@@ -1,0 +1,1 @@
+<li class="[[+cls]]">[[+username]] - <em>[[+role]]</em></li>

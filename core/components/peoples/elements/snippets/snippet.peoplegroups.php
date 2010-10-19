@@ -41,6 +41,7 @@ $altCls = $modx->getOption('altCls',$scriptProperties,'');
 $firstCls = $modx->getOption('firstCls',$scriptProperties,'');
 $lastCls = $modx->getOption('lastCls',$scriptProperties,'');
 $placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'peoplegroups.');
+$userClass = $modx->getOption('userClass',$scriptProperties,'modUser');
 
 /* build query */
 $c = $modx->newQuery('modUserGroup');
@@ -62,10 +63,10 @@ if (!empty($user)) {
 }
 
 /* build users count subquery */
-$subc = $modx->newQuery('modUser');
+$subc = $modx->newQuery($userClass);
 $subc->setClassAlias('ctUser');
 $subc->innerJoin('modUserGroupMember','ctUserGroupMembers','ctUser.id = ctUserGroupMembers.member');
-$mupk = $modx->getSelectColumns('modUser','ctUser','',array('id'));
+$mupk = $modx->getSelectColumns($userClass,'ctUser','',array('id'));
 $subc->select('COUNT('.$mupk.')');
 $subc->where(array(
     $modx->getSelectColumns('modUserGroup','modUserGroup','',array('id')).' = '.$modx->getSelectColumns('modUserGroupMember','ctUserGroupMembers','',array('user_group')),
