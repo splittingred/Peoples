@@ -2,5 +2,6 @@ Changelog for Peoples.
 
 Peoples 1.0.0
 ====================================
+- Added support in PeopleGroups snippet to show role for each usergroup when user parameter is specified
 - Added Peoples and PeopleGroups snippets
 - Initial commit

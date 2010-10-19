@@ -47,20 +47,28 @@ $c = $modx->newQuery('modUserGroup');
 /* filter by user if specified */
 if (!empty($user)) {
     $c->innerJoin('modUserGroupMember','UserGroupMembers');
+    $c->innerJoin('modUserGroupRole','UserGroupRole','UserGroupRole.id = UserGroupMembers.role');
     $c->where(array(
         'UserGroupMembers.member' => $user,
     ));
 }
 $count = $modx->getCount('modUserGroup',$c);
 $c->select($modx->getSelectColumns('modUserGroup','modUserGroup'));
+if (!empty($user)) {
+    $c->select(array(
+        'UserGroupRole.name AS role',
+        'UserGroupRole.id AS role_id',
+    ));
+}
 
 /* build users count subquery */
 $subc = $modx->newQuery('modUser');
-$subc->innerJoin('modUserGroupMember','UserGroupMembers');
-$mupk = $modx->getSelectColumns('modUser','modUser','',array('id'));
+$subc->setClassAlias('ctUser');
+$subc->innerJoin('modUserGroupMember','ctUserGroupMembers','ctUser.id = ctUserGroupMembers.member');
+$mupk = $modx->getSelectColumns('modUser','ctUser','',array('id'));
 $subc->select('COUNT('.$mupk.')');
 $subc->where(array(
-    $modx->getSelectColumns('modUserGroup','modUserGroup','',array('id')).' = '.$modx->getSelectColumns('modUserGroupMember','UserGroupMembers','',array('user_group')),
+    $modx->getSelectColumns('modUserGroup','modUserGroup','',array('id')).' = '.$modx->getSelectColumns('modUserGroupMember','ctUserGroupMembers','',array('user_group')),
 ));
 $subc->prepare();
 $c->select('('.$subc->toSql().') AS '.$modx->escape('children'));
