@@ -136,7 +136,7 @@ class Peoples {
      * Clears existing placeholders semi-recursively
      */
     public function clearPlaceholders($ar,$key) {
-        if (!isset($ar[$key])) return false;
+        if (!isset($ar[$key]) || !is_array($ar[$key])) return false;
         $e = array_keys($ar[$key]);
         foreach ($e as $k) { $e[$k] = $key.'.'.$k;}
         $this->modx->unsetPlaceholders($e);

@@ -63,7 +63,7 @@ $properties = array(
         'desc' => 'prop_peoplegroups.sortby_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => 'username',
+        'value' => 'name',
         'lexicon' => 'peoples:properties',
     ),/*
     array(

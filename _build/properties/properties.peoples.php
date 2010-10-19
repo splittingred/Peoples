@@ -157,7 +157,7 @@ $properties = array(
         'desc' => 'prop_peoples.userclass_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => '',
+        'value' => 'modUser',
         'lexicon' => 'peoples:properties',
     ),
     array(
@@ -165,7 +165,7 @@ $properties = array(
         'desc' => 'prop_peoples.useralias_desc',
         'type' => 'textfield',
         'options' => '',
-        'value' => '',
+        'value' => 'User',
         'lexicon' => 'peoples:properties',
     ),
 /*
