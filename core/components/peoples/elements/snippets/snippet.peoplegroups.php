@@ -31,8 +31,8 @@ $output = '';
 /* setup default properties */
 $tpl = $modx->getOption('tpl',$scriptProperties,'pplUserGroup');
 $user = $modx->getOption('user',$scriptProperties,false);
-$limit = $modx->getOption('limit',$scriptProperties,10);
-$start = $modx->getOption('start',$scriptProperties,0);
+$limit = (int)$modx->getOption('limit',$_REQUEST,$modx->getOption('limit',$scriptProperties,10));
+$start = (int)$modx->getOption('start',$modx->getOption('offset',$_REQUEST,$modx->getOption('offset',$scriptProperties,0)));
 $sortBy = $modx->getOption('sortBy',$scriptProperties,'name');
 $sortByAlias = $modx->getOption('sortByAlias',$scriptProperties,'modUserGroup');
 $sortDir = $modx->getOption('sortDir',$scriptProperties,'ASC');
@@ -83,14 +83,20 @@ $list = array();
 $iterativeCount = count($usergroups);
 foreach ($usergroups as $usergroup) {
     $usergroupArray = $usergroup->toArray();
+    $usergroupArray['idx'] = $idx;
 
-    $usergroupArray['cls'] = $alt && !empty($altCls) ? $cls.' '.$altCls : $cls;
+    $usergroupArray['cls'] = array();
+    $usergroupArray['cls'][] = $cls;
+    if ($alt && !empty($altCls)) $usergroupArray['cls'][] = $altCls;
     if (!empty($firstCls) && $idx == 0) {
-        $usergroupArray['cls'] .= ' '.$firstCls;
+        $usergroupArray['cls'][] = $firstCls;
+        $usergroupArray['_first'] = true;
     }
     if (!empty($lastCls) && $idx == $iterativeCount-1) {
-        $usergroupArray['cls'] .= ' '.$lastCls;
+        $usergroupArray['cls'][] = $lastCls;
+        $usergroupArray['_last'] = true;
     }
+    $usergroupArray['cls'] = implode(' ',$usergroupArray['cls']);
     $list[] = $peoples->getChunk($tpl,$usergroupArray);
     $alt = !$alt;
     $idx++;
@@ -100,6 +106,7 @@ foreach ($usergroups as $usergroup) {
 $placeholders = array(
     'total' => $count,
     'start' => $start,
+    'offset' => $start,
     'limit' => $limit,
 );
 $modx->setPlaceholders($placeholders,$placeholderPrefix);

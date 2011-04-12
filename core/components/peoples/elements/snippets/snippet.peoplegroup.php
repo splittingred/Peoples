@@ -49,8 +49,8 @@ $placeholderPrefix = $modx->getOption('placeholderPrefix',$scriptProperties,'peo
 $userClass = $modx->getOption('userClass',$scriptProperties,'modUser');
 $getProfile = $modx->getOption('getProfile',$scriptProperties,false);
 $profileAlias = $modx->getOption('profileAlias',$scriptProperties,'Profile');
-$limit = $modx->getOption('limit',$scriptProperties,0);
-$start = $modx->getOption('start',$scriptProperties,0);
+$limit = (int)$modx->getOption('limit',$_REQUEST,$modx->getOption('limit',$scriptProperties,0));
+$start = (int)$modx->getOption('start',$modx->getOption('offset',$_REQUEST,$modx->getOption('offset',$scriptProperties,0)));
 
 /* define initial placeholders from usergroup data */
 $phs = $usergroup->toArray();
@@ -81,19 +81,23 @@ $alt = false;
 $iterativeCount = count($users);
 $output = '';
 foreach ($users as $user) {
-    $userArray = $user->get(array('id','username','active','class_key','remote_key','remote_data','role','role_id'));
+    $userArray = $user->toArray();
+    unset($userArray['cachepwd'],$userArray['password']);
     if ($getProfile) {
         $profile = $user->getOne($profileAlias);
         if ($profile) $userArray = array_merge($profile->toArray(),$userArray);
     }
-    
-    $userArray['cls'] = $alt && !empty($altCls) ? $cls.' '.$altCls : $cls;
+
+    $userArray['cls'] = array();
+    $userArray['cls'][] = $cls;
+    if ($alt && !empty($altCls)) $userArray['cls'][] = $altCls;
     if (!empty($firstCls) && $idx == 0) {
-        $userArray['cls'] .= ' '.$firstCls;
+        $userArray['cls'][] = $firstCls;
     }
     if (!empty($lastCls) && $idx == $iterativeCount-1) {
-        $userArray['cls'] .= ' '.$lastCls;
+        $userArray['cls'][] = $lastCls;
     }
+    $userArray['cls'] = implode(' ',$userArray['cls']);
 
     $list[] = $peoples->getChunk($userTpl,$userArray);
     $peoples->clearPlaceholders($userArray,'extended');

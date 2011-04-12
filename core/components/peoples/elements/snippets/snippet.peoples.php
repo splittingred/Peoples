@@ -30,10 +30,10 @@ $output = '';
 
 /* setup default properties */
 $tpl = $modx->getOption('tpl',$scriptProperties,'pplUser');
-$active = $modx->getOption('active',$scriptProperties,true);
+$active = (boolean)$modx->getOption('active',$scriptProperties,true);
 $usergroups = $modx->getOption('usergroups',$scriptProperties,'');
-$limit = $modx->getOption('limit',$scriptProperties,10);
-$start = $modx->getOption('start',$scriptProperties,0);
+$limit = (int)$modx->getOption('limit',$_REQUEST,$modx->getOption('limit',$scriptProperties,10));
+$start = (int)$modx->getOption('start',$modx->getOption('offset',$_REQUEST,$modx->getOption('offset',$scriptProperties,0)));
 $sortBy = $modx->getOption('sortBy',$scriptProperties,'username');
 $sortByAlias = $modx->getOption('sortByAlias',$scriptProperties,'User');
 $sortDir = $modx->getOption('sortDir',$scriptProperties,'ASC');
@@ -81,14 +81,21 @@ foreach ($users as $user) {
     
     $userArray = $user->get(array('id','username','active','class_key','remote_key','remote_data'));
     $userArray = array_merge($user->$profileAlias->toArray(),$userArray);
-    
-    $userArray['cls'] = $alt && !empty($altCls) ? $cls.' '.$altCls : $cls;
+
+    $userArray['cls'] = array();
+    $userArray['cls'][] = $cls;
+    if ($alt && !empty($altCls)) $userArray['cls'][] = $altCls;
     if (!empty($firstCls) && $idx == 0) {
-        $userArray['cls'] .= ' '.$firstCls;
+        $userArray['cls'][] = $firstCls;
+        $userArray['_first'] = true;
     }
     if (!empty($lastCls) && $idx == $iterativeCount-1) {
-        $userArray['cls'] .= ' '.$lastCls;
+        $userArray['cls'][] = $lastCls;
+        $userArray['_last'] = true;
     }
+    $userArray['cls'] = implode(' ',$userArray['cls']);
+    $userArray['idx'] = $idx;
+
     $list[] = $peoples->getChunk($tpl,$userArray);
     $peoples->clearPlaceholders($userArray,'extended');
     $peoples->clearPlaceholders($userArray,'remote_data');
@@ -100,6 +107,7 @@ foreach ($users as $user) {
 $placeholders = array(
     'total' => $count,
     'start' => $start,
+    'offset' => $start,
     'limit' => $limit,
 );
 $modx->setPlaceholders($placeholders,$placeholderPrefix);
