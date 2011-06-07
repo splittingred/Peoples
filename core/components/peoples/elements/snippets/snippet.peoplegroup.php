@@ -62,7 +62,7 @@ $c->innerJoin('modUserGroupRole','UserGroupRole','UserGroupMembers.role = UserGr
 $c->where(array(
     'UserGroupMembers.user_group' => $usergroup->get('id'),
 ));
-$phs['userCount'] = $modx->getCount($userClass,$c);
+$total = $modx->getCount($userClass,$c);
 $c->select($modx->getSelectColumns($userClass,$userClass));
 $c->select(array(
     'UserGroupRole.name AS role',
@@ -73,7 +73,7 @@ if (!empty($limit)) {
     $c->limit($limit,$start);
 }
 $users = $modx->getCollection($userClass,$c);
-
+$phs['userCount'] = $total;
 /* iterate */
 $list = array();
 $idx = 0;
@@ -106,7 +106,27 @@ foreach ($users as $user) {
     $idx++;
 }
 $outputSeparator = $modx->getOption('outputSeparator',$scriptProperties,"\n");
-$output = implode($list,$outputSeparator);
+if (count($list) > 0) {
+    /* pagination handling in conjunction with getPage */
+    if (!empty($limit)) {
+        $pageVarKey = $modx->getOption('pageVarKey',$scriptProperties,'page');
+        $page = (int)$modx->getOption($pageVarKey,$scriptProperties,$modx->getOption($pageVarKey,$_REQUEST,1));
+        $offset = (int)$modx->getOption('offset',$scriptProperties,0);
+        /* cut the list of file into blocks */
+        $list = array_chunk($list,$limit,true);
+        /* output the current listing block */
+        $output = implode($outputSeparator,$list[$page - 1]);
+        /* need to make the total available without placeholder prefix for getPage */
+
+        $modx->setPlaceholder('total',$total);
+    } else {
+        /* no pagination so display all results */
+        $output = implode($outputSeparator,$list);
+    }
+} else {
+  /* no people so display nothing */
+  $output = '';
+}
 
 /* set placeholders and output */
 $modx->setPlaceholders($phs,$placeholderPrefix);

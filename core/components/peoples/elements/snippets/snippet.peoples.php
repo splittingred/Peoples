@@ -115,7 +115,26 @@ $modx->setPlaceholders($placeholders,$placeholderPrefix);
 
 /* output */
 $outputSeparator = $modx->getOption('outputSeparator',$scriptProperties,"\n");
-$output = implode($list,$outputSeparator);
+if (count($list) > 0) {
+    /* pagination handling in conjunction with getPage */
+    if (!empty($limit)) {
+        $pageVarKey = $modx->getOption('pageVarKey',$scriptProperties,'page');
+        $page = (int)$modx->getOption($pageVarKey,$scriptProperties,$modx->getOption($pageVarKey,$_REQUEST,1));
+        $offset = (int)$modx->getOption('offset',$scriptProperties,0);
+        /* cut the list of file into blocks */
+        $list = array_chunk($list,$limit,true);
+        /* output the current listing block */
+        $output = implode($outputSeparator,$list[$page - 1]);
+        /* need to make the total available without placeholder prefix for getPage */
+        $modx->setPlaceholder('total',$count);
+    } else {
+        /* no pagination so display all results */
+        $output = implode($outputSeparator,$list);
+    }
+} else {
+  /* no people so display nothing */
+  $output = '';
+}
 $toPlaceholder = $modx->getOption('toPlaceholder',$scriptProperties,false);
 if (!empty($toPlaceholder)) {
     $modx->setPlaceholder($toPlaceholder,$output);
