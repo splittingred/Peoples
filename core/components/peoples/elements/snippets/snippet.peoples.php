@@ -22,6 +22,8 @@
 /**
  * Displays a list of Users
  *
+ * @var modX $modx
+ * @var Peoples $peoples
  * @package peoples
  */
 $peoples = $modx->getService('peoples','Peoples',$modx->getOption('peoples.core_path',null,$modx->getOption('core_path').'components/peoples/').'model/peoples/',$scriptProperties);
@@ -33,7 +35,7 @@ $tpl = $modx->getOption('tpl',$scriptProperties,'pplUser');
 $active = (boolean)$modx->getOption('active',$scriptProperties,true);
 $usergroups = $modx->getOption('usergroups',$scriptProperties,'');
 $limit = (int)$modx->getOption('limit',$_REQUEST,$modx->getOption('limit',$scriptProperties,10));
-$start = (int)$modx->getOption('start',$modx->getOption('offset',$_REQUEST,$modx->getOption('offset',$scriptProperties,0)));
+$start = (int)$modx->getOption('start',$_REQUEST,$modx->getOption('offset',$_REQUEST,$modx->getOption('offset',$scriptProperties,0)));
 $sortBy = $modx->getOption('sortBy',$scriptProperties,'username');
 $sortByAlias = $modx->getOption('sortByAlias',$scriptProperties,'User');
 $sortDir = $modx->getOption('sortDir',$scriptProperties,'ASC');
@@ -76,6 +78,7 @@ $list = array();
 $alt = false;
 $iterativeCount = count($users);
 $idx = 0;
+/** @var modUser $user */
 foreach ($users as $user) {
     if (empty($user->$profileAlias)) continue;
     
@@ -116,21 +119,8 @@ $modx->setPlaceholders($placeholders,$placeholderPrefix);
 /* output */
 $outputSeparator = $modx->getOption('outputSeparator',$scriptProperties,"\n");
 if (count($list) > 0) {
-    /* pagination handling in conjunction with getPage */
-    if (!empty($limit)) {
-        $pageVarKey = $modx->getOption('pageVarKey',$scriptProperties,'page');
-        $page = (int)$modx->getOption($pageVarKey,$scriptProperties,$modx->getOption($pageVarKey,$_REQUEST,1));
-        $offset = (int)$modx->getOption('offset',$scriptProperties,0);
-        /* cut the list of file into blocks */
-        $list = array_chunk($list,$limit,true);
-        /* output the current listing block */
-        $output = implode($outputSeparator,$list[$page - 1]);
-        /* need to make the total available without placeholder prefix for getPage */
-        $modx->setPlaceholder('total',$count);
-    } else {
-        /* no pagination so display all results */
-        $output = implode($outputSeparator,$list);
-    }
+    $modx->setPlaceholder('total',$count);
+    $output = implode($outputSeparator,$list);
 } else {
   /* no people so display nothing */
   $output = '';

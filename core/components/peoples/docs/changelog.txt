@@ -1,8 +1,11 @@
 Changelog for Peoples.
 
+Peoples 1.0.1
+====================================
+- [#6091].[#5041] Fix getPage support
+
 Peoples 1.0.0
 ====================================
-- Fix getPage support
 - Add idx property to each tpl row
 - Add PeopleGroup snippet for displaying Users in a User Group
 - Add support in PeopleGroups snippet to show role for each usergroup when user parameter is specified
