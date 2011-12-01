@@ -24,6 +24,7 @@
  *
  * @var modX $modx
  * @var Peoples $peoples
+ * @var array $scriptProperties
  * @package peoples
  */
 $peoples = $modx->getService('peoples','Peoples',$modx->getOption('peoples.core_path',null,$modx->getOption('core_path').'components/peoples/').'model/peoples/',$scriptProperties);
@@ -36,6 +37,7 @@ $active = (boolean)$modx->getOption('active',$scriptProperties,true);
 $usergroups = $modx->getOption('usergroups',$scriptProperties,'');
 $limit = (int)$modx->getOption('limit',$_REQUEST,$modx->getOption('limit',$scriptProperties,10));
 $start = (int)$modx->getOption('start',$_REQUEST,$modx->getOption('offset',$_REQUEST,$modx->getOption('offset',$scriptProperties,0)));
+$where = $modx->getOption('where',$scriptProperties,'');
 $sortBy = $modx->getOption('sortBy',$scriptProperties,'username');
 $sortByAlias = $modx->getOption('sortByAlias',$scriptProperties,'User');
 $sortDir = $modx->getOption('sortDir',$scriptProperties,'ASC');
@@ -64,6 +66,10 @@ if (!empty($usergroups)) {
     $c->where(array(
         'UserGroup.name:IN' => $usergroups,
     ));
+}
+if (!empty($where)) {
+    $where = is_array($where) ? $where : $modx->fromJSON($where);
+    $c->where($where);
 }
 $count = $modx->getCount($userClass,$c);
 $c->sortby($sortByAlias.'.'.$sortBy,$sortDir);

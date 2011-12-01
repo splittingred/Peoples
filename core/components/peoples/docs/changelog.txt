@@ -2,6 +2,7 @@ Changelog for Peoples.
 
 Peoples 1.0.1
 ====================================
+- [#6048] Add &where support
 - [#6091].[#5041] Fix getPage support
 
 Peoples 1.0.0
